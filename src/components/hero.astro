@@ -1,0 +1,28 @@
+---
+import type { MovieDetails } from "../types";
+import { media } from "../api";
+
+type Props = {
+  movie: MovieDetails;
+};
+const { movie } = Astro.props;
+
+const images = movie.images;
+const backdrop =
+  images.backdrops.find((img) => !img.iso_639_1) ?? images.backdrops[0];
+---
+
+<a href={`/movie/${movie.id}`}>
+  <img
+    class='backdrop column'
+    src={media(backdrop.file_path, 1280)}
+    alt={movie.title}
+    style={`aspect-ratio: ${backdrop.aspect_ratio}`}
+  />
+</a>
+
+<style>
+  img {
+    width: 100%;
+  }
+</style>

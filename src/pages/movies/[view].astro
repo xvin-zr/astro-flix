@@ -1,0 +1,32 @@
+---
+import Layout from "@layouts/layout.astro";
+import { queryClient } from "src/api";
+import { fetchViews } from "src/api/movies";
+import { views } from "src/views";
+import { ResultsPage } from "@components/results-page";
+
+export const prerender = false;
+
+const { view: viewStr } = Astro.params;
+console.log({ viewStr });
+if (!viewStr || !views[viewStr]) {
+  return Astro.redirect("/404");
+}
+const view = views[viewStr];
+const page = Astro.url.searchParams.get("page") ?? "1";
+
+const data = await queryClient.fetchInfiniteQuery({
+  queryKey: [view.endpoint, page],
+  initialPageParam: 1,
+  queryFn: () => fetchViews(view, page),
+  getNextPageParam: (lastPage: { next_page?: number }) => lastPage.next_page,
+});
+---
+
+<Layout>
+  <h1 class='px-4'>{view.title}</h1>
+
+  <ResultsPage view={view} page={page} client:load />
+</Layout>
+
+<style></style>

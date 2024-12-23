@@ -1,22 +1,107 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Astro Flix</title>
+  </head>
+  <body>
+    <nav>
+      <a href='/'><img src='/astro.svg' alt='astro flix' class='logo' /></a>
+
+      <div class='links'>
+        <a href='/search'>Search</a>
+        <a href='/watchlist'>Watchlist</a>
+        <a href='/login'>Log In</a>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>
+        Data provided by <a href='https://www.themoviedb.org/'>TMDB</a>
+      </p>
+    </footer>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  nav,
+  footer {
+    padding: 1rem;
+    margin: 0 auto;
+  }
+
+  nav {
+    display: flex;
+    width: 100%;
+    height: theme(spacing.12);
+    color: var(--accent);
+    font-weight: bold;
+
+    place-items: center;
+    justify-content: space-between;
+  }
+
+  footer {
+    display: flex;
+    height: theme(spacing.20);
+    place-items: center;
+  }
+
+  .links {
+    @apply space-x-2;
+  }
+
+  .logo {
+    height: theme(spacing.10);
+  }
+</style>
+
+<style is:global>
+  html,
+  body {
+    min-width: 100vw;
+    min-height: 100vh;
+    background: theme(colors.zinc.50);
+    color: theme(colors.zinc.950);
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: theme(fontSize.3xl);
+  }
+  h2 {
+    font-size: theme(fontSize.2xl);
+  }
+
+  h1,
+  h2 {
+    font-weight: bold;
+    margin-bottom: theme(spacing.4);
+  }
+
+  .column {
+    @apply mx-auto px-4;
+    max-width: theme(screens.lg);
+  }
+
+  :root {
+    --accent: theme("colors.orange.700");
+    --column: 80rem;
+  }
+
+  input,
+  button {
+    border-radius: theme(borderRadius.sm);
+  }
 </style>

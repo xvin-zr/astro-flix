@@ -1,0 +1,66 @@
+---
+import { media } from "../api";
+import type { MovieListResult } from "../types";
+import type { View } from "../views";
+
+type Props = {
+  movies: MovieListResult[];
+  view: View;
+  href: string;
+};
+const { movies, view, href } = Astro.props;
+---
+
+<h2 class='pl-4'>
+  {view.title}
+  {href && <a href={href}>See all</a>}
+</h2>
+<div class='carousel'>
+  {
+    movies.map((movie) => (
+      <a href={`/movie/${movie.id}`}>
+        <img
+          src={media(movie.poster_path, 500)}
+          alt={movie.title}
+          class='poster'
+        />
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  h2 {
+    margin-top: theme(spacing.4);
+    > a {
+      @apply underline;
+      font-size: theme(fontSize.sm);
+    }
+  }
+  .carousel {
+    --padding: theme(spacing.4);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 9rem;
+    /* grid-template-rows: 30rem; */
+    overflow-x: auto;
+
+    scroll-snap-type: mandatory;
+    scroll-padding-left: var(--padding);
+    padding: 0 var(--padding);
+
+    height: 14rem;
+    gap: 1rem;
+
+    > a {
+      height: 100%;
+      > img {
+        height: 100%;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
