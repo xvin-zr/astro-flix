@@ -26,7 +26,7 @@ const data = await queryClient.fetchInfiniteQuery({
 <Layout>
   <h1 class='px-4'>{view.title}</h1>
 
-  <ResultsPage view={view} page={page} client:load />
+  <ResultsPage view={view} page={page} client:only='react' />
 </Layout>
 
 <style></style>
