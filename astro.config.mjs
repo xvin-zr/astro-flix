@@ -7,6 +7,7 @@ import deno from "@deno/astro-adapter";
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
   integrations: [react(), tailwind()],
   adapter: deno(),
 });
