@@ -1,9 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { media, queryClient } from "src/api";
 import { fetchViews } from "src/api/movies";
+import type { MovieListResult } from "src/types";
 import type { View } from "src/views";
 import styles from "./results-page.module.css";
-import { useCallback, useEffect, useRef, useState } from "react";
 
 type ResultsPageProps = {
   view: View;
@@ -91,6 +92,23 @@ export function ResultsPage({ view, page }: ResultsPageProps) {
         style={{ paddingTop: `${pt}px`, paddingBottom: `${pb}px` }}
       >
         {movies.slice(lo, hi).map((movie) => (
+          <a key={movie.id} href={`/movie/${movie.id}`}>
+            <img src={media(movie.poster_path, 500)} alt={movie.title} />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+type SearchResultPageProps = {
+  movies: MovieListResult[];
+};
+export function SearchResultPage({ movies }: SearchResultPageProps) {
+  return (
+    <div className={styles.viewport}>
+      <div className={styles.results}>
+        {movies.map((movie) => (
           <a key={movie.id} href={`/movie/${movie.id}`}>
             <img src={media(movie.poster_path, 500)} alt={movie.title} />
           </a>

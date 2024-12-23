@@ -1,0 +1,48 @@
+---
+import { SearchResultPage } from "@components/results-page";
+import Layout from "@layouts/layout.astro";
+import { queryClient } from "src/api";
+import { fetchSearchMovie } from "src/api/movies";
+export const prerender = false;
+
+const query = Astro.url.searchParams.get("query") ?? "";
+
+const { movies } = await queryClient.fetchQuery({
+  queryKey: ["search", query],
+  queryFn: () => fetchSearchMovie(query),
+});
+---
+
+<Layout>
+  <div class='column'>
+    <h1>Search</h1>
+
+    <form>
+      <input
+        type='text'
+        name='query'
+        value={query}
+        autocomplete='off'
+        spellcheck='false'
+      />
+    </form>
+
+    {query !== "" && <SearchResultPage movies={movies} />}
+  </div>
+</Layout>
+
+<style>
+  input {
+    width: 100%;
+    padding: theme(spacing.2) theme(spacing.3);
+    border: 1px solid theme(colors.gray.300);
+
+    &:focus-visible {
+      outline: 2px solid theme(colors.orange.700);
+    }
+  }
+
+  form {
+    margin-bottom: theme(spacing.4);
+  }
+</style>

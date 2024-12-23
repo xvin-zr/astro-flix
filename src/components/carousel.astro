@@ -5,14 +5,15 @@ import type { View } from "../views";
 
 type Props = {
   movies: MovieListResult[];
-  view: View;
-  href: string;
+  view?: View;
+  href?: string;
+  title?: string;
 };
-const { movies, view, href } = Astro.props;
+const { movies, view, href, title } = Astro.props;
 ---
 
 <h2 class='pl-4'>
-  {view.title}
+  {view?.title ?? title}
   {href && <a href={href}>See all</a>}
 </h2>
 <div class='carousel'>
