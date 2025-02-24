@@ -15,9 +15,9 @@ const backdrop =
 <a href={`/movie/${movie.id}`}>
   <img
     class='backdrop column drop-shadow'
-    src={media(backdrop.file_path, 1280)}
+    src={media(backdrop?.file_path, 1280)}
     alt={movie.title}
-    style={`aspect-ratio: ${backdrop.aspect_ratio}`}
+    style={`aspect-ratio: ${backdrop?.aspect_ratio}`}
   />
 </a>
 
