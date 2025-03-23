@@ -56,6 +56,7 @@
       "dependencies": [
         "npm:@astrojs/react@^4.1.2",
         "npm:@astrojs/tailwind@^5.1.4",
+        "npm:@astrojs/vercel@^8.0.1",
         "npm:@deno/astro-adapter@0.2",
         "npm:@tanstack/react-query@^5.62.8",
         "npm:@types/react-dom@^19.0.2",
