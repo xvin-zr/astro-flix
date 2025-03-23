@@ -23,7 +23,7 @@ const { movies, view, href, title } = Astro.props;
         <img
           src={media(movie.poster_path, 500)}
           alt={movie.title}
-          class='poster'
+          class='poster aspect-[2/3]'
         />
       </a>
     ))
