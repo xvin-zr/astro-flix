@@ -22,7 +22,15 @@ export function ResultsPage({ view, page }: ResultsPageProps) {
     queryClient
   );
 
-  const movies = data?.pages.flatMap(({ movies }) => movies) ?? [];
+  const movies =
+    data?.pages
+      .flatMap(({ movies }) => movies)
+      ?.reduce((acc, movie) => {
+        if (!acc.some((m) => m.id === movie.id)) {
+          acc.push(movie);
+        }
+        return acc;
+      }, [] as MovieListResult[]) ?? [];
 
   const viewport = useRef<HTMLDivElement>(null!);
   const results = useRef<HTMLDivElement>(null!);
